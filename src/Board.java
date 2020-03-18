@@ -1,48 +1,39 @@
+import java.util.HashSet;
 import java.util.Set;
 
 public class Board {
-    public class Piece {
-        private int color;  // 0 for white; 1 for black
-        private int type;   // pawn 0; bishop 1; knight 2; rook 3; queen 4; king 5
-        private int loc;
-
-        public Piece(int color, int type) {
-            this.color = color;
-            this.type = type;
-        }
-
-        public Set<Integer> canMoveTo() {
-            Set<Integer>
-        }
-
-        public void moveTo() {
-
-        }
-
-        public int getColor() {
-            return color;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public int getLoc() {
-            return loc;
-        }
-
-        public void setLoc(int loc) {
-            this.loc = loc;
-        }
-    }
-
     private Set<Piece> pieces;
 
     public Board() {
+        pieces = new HashSet<>();
+        for (int i = 0; i < 8; i ++) {
+            pieces.add(new Pawn(0,8 + i, this));
+            pieces.add(new Pawn(1, 48 + i, this));
+        }
+        for (int i = 0; i < 2; i ++) {
+            pieces.add(new Bishop(0, 2 + 3*i, this));
+            pieces.add(new Bishop(1, 58 + 3*i, this));
+        }
+        for (int i = 0; i < 2; i ++) {
+            pieces.add(new Knight(0, 1 + 5*i, this));
+            pieces.add(new Knight(1, 57 + 5*i, this));
+        }
+        for (int i = 0; i < 2; i ++) {
+            pieces.add(new Rook(0, 7*i, this));
+            pieces.add(new Rook(1, 56 + 7*i, this));
+        }
+        pieces.add(new Queen(0, 3, this));
+        pieces.add(new Queen(1, 59, this));
 
+        pieces.add(new King(0, 4, this));
+        pieces.add(new Queen(1, 60, this));
     }
 
     public Set<Piece> getPieces() {
         return pieces;
+    }
+
+    public static boolean onBoard(int row, int col) {
+        return (row >= 0 && row < 8 && col >= 0 && col < 8);
     }
 }

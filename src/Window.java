@@ -6,7 +6,9 @@ import java.util.Set;
 
 public class Window implements MouseListener {
     public class Panel extends JPanel {
-        private Set<Board.Piece> pieces;
+        private Set<Piece> pieces;
+        private final int WIDTH = Window.WIDTH;
+        private final int HEIGHT = Window.HEIGHT;
 
         public Panel(Board board) {
             pieces = board.getPieces();
@@ -14,20 +16,42 @@ public class Window implements MouseListener {
 
         public void paint(Graphics g) {
             super.paint(g);
+            drawBoard(g);
+            drawPieces(g);
+        }
+
+        public void drawBoard(Graphics g) {
+            System.out.println("reached");
+            for (int i = 0; i <= 8; i ++) {
+                g.drawLine(i * WIDTH/8, 0, i * WIDTH/8, HEIGHT);
+                g.drawLine(0, i * HEIGHT/8, WIDTH, i * HEIGHT/8);
+            }
+        }
+
+        private void drawPieces(Graphics g) {
+            for (Piece piece : pieces) {
+                int loc = piece.getLoc();
+                int row = loc / 8;
+                int col = loc % 8;
+                if (piece instanceof Pawn) g.drawString("P", );
+            }
         }
     }
 
     private JFrame frame;
     private Panel panel;
+    private final static int HEIGHT = 600;
+    private final static int WIDTH = 600;
 
     public Window(Board board) {
-        frame = new JFrame("Play Chess!");
         panel = new Panel(board);
+        panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        frame.setSize(800, 800);
+        frame = new JFrame("Play Chess!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setContentPane(panel);
+        frame.add(panel);
+        frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.addMouseListener(this);
