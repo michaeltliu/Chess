@@ -1,10 +1,9 @@
 import java.util.Set;
 
 public class Knight extends Piece {
-    private int value;
+    public final static int VALUE = 3;
     public Knight(int color, int loc, Board board) {
         super(color, loc, board);
-        value = 3;
     }
 
     @Override
@@ -13,7 +12,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public void moveTo() {
+    public void moveTo(int dest) {
 
     }
 
