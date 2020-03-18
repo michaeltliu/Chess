@@ -19,14 +19,14 @@ public class Board {
             pieces.add(new Knight(1, 57 + 5*i, this));
         }
         for (int i = 0; i < 2; i ++) {
-            pieces.add(new Rook(0, 7*i, this));
-            pieces.add(new Rook(1, 56 + 7*i, this));
+            pieces.add(new Rook(0, 7*i, this, 1 - i));
+            pieces.add(new Rook(1, 56 + 7*i, this, 1 - i));
         }
         pieces.add(new Queen(0, 3, this));
         pieces.add(new Queen(1, 59, this));
 
         pieces.add(new King(0, 4, this));
-        pieces.add(new Queen(1, 60, this));
+        pieces.add(new King(1, 60, this));
     }
 
     public Set<Piece> getPieces() {
