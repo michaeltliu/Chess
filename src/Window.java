@@ -67,7 +67,7 @@ public class Window implements MouseListener {
     private Panel panel;
     private Board board;
     private Map<Integer, Piece> pieces;
-    private int user;
+    private static int user;
     private int selectedPiece;
     private final static int HEIGHT = 600;
     private final static int WIDTH = 600;
@@ -128,4 +128,7 @@ public class Window implements MouseListener {
 
     }
 
+    public static int getUser() {
+        return user;
+    }
 }

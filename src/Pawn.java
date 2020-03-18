@@ -14,19 +14,19 @@ public class Pawn extends Piece {
     @Override
     public Set<Integer> canMoveTo() {
         Set<Integer> ret = new HashSet<>();
-        if (color == 0) {
-            if (loc >= 8 && !pieces.containsKey(loc - 8)) {
-                ret.add(loc - 8);
-                if (!hasMoved && !pieces.containsKey(loc - 16))
-                    ret.add(loc - 16);
-            }
-            if (loc % 8 != 0 && pieces.containsKey(loc - 9) && pieces.get(loc - 9).color != this.color){
-                ret.add(loc - 9);
-                System.out.println("reached");
-            }
-            if (loc % 8 != 7 && pieces.containsKey(loc - 7) && pieces.get(loc - 7).color != this.color)
-                ret.add(loc - 7);
+        int c = (int) Math.pow(-1, Window.getUser());
+
+        if (loc >= 8 && !pieces.containsKey(loc - c*8)) {
+            ret.add(loc - c*8);
+            if (!hasMoved && !pieces.containsKey(loc - c*16))
+                ret.add(loc - c*16);
         }
+        if (loc % 8 != 0 && pieces.containsKey(loc - c*9) && pieces.get(loc - c*9).color != this.color){
+            ret.add(loc - c*9);
+            System.out.println("reached");
+        }
+        if (loc % 8 != 7 && pieces.containsKey(loc - c*7) && pieces.get(loc - c*7).color != this.color)
+            ret.add(loc - c*7);
         return ret;
     }
 
