@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Set;
 
 public class Bishop extends Piece {
@@ -8,11 +9,51 @@ public class Bishop extends Piece {
 
     @Override
     public Set<Integer> canMoveTo() {
-        return null;
-    }
+        Set<Integer> ret = new HashSet<>();
 
-    @Override
-    public void moveTo(int dest) {
+        // northwest
+        int curr = loc;
+        while (curr >= 9 && curr % 8 > 0) {
+            curr -= 9;
+            if (!pieces.containsKey(curr)) ret.add(curr);
+            else break;
+        }
 
+        // northeast
+        curr = loc;
+        while (curr >= 8 && curr % 8 < 7) {
+            curr -= 7;
+            if (!pieces.containsKey(curr)) ret.add(curr);
+            else if (pieces.containsKey(curr) && pieces.get(curr).color != this.color) {
+                ret.add(curr);
+                break;
+            }
+            else break;
+        }
+
+        // southwest
+        curr = loc;
+        while (curr <= 55 && curr % 8 > 0) {
+            curr += 7;
+            if (!pieces.containsKey(curr)) ret.add(curr);
+            else if (pieces.containsKey(curr) && pieces.get(curr).color != this.color) {
+                ret.add(curr);
+                break;
+            }
+            else break;
+        }
+
+        // southeast
+        curr = loc;
+        while (curr <= 54 && curr % 8 < 7) {
+            curr += 9;
+            if (!pieces.containsKey(curr)) ret.add(curr);
+            else if (pieces.containsKey(curr) && pieces.get(curr).color != this.color) {
+                ret.add(curr);
+                break;
+            }
+            else break;
+        }
+        return ret;
     }
 }

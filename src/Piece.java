@@ -1,4 +1,3 @@
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,5 +16,17 @@ public abstract class Piece {
 
     public abstract Set<Integer> canMoveTo();
 
-    public abstract void moveTo(int dest);
+    public void moveTo(int dest) {
+        if (canMoveTo().contains(dest)) {
+            if (pieces.containsKey(dest) && pieces.get(dest).color != this.color)
+                pieces.remove(dest);
+            pieces.remove(loc);
+            loc = dest;
+            pieces.put(loc, this);
+        }
+    }
+
+    public boolean occupiedByTeam(int loc) {
+        return pieces.containsKey(loc) && pieces.get(loc).color == this.color;
+    }
 }

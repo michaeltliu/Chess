@@ -30,7 +30,6 @@ public class Window implements MouseListener {
             g.setFont(new Font("TimesRoman", Font.BOLD, 18));
             for (Piece piece : pieces.values()) {
                 int loc = piece.loc;
-                if (user == 1) loc = 63 - loc;     // Flip the board if the user plays black
                 int row = loc / 8;
                 int col = loc % 8;
 
@@ -67,15 +66,13 @@ public class Window implements MouseListener {
     private Panel panel;
     private Board board;
     private Map<Integer, Piece> pieces;
-    private static int user;
     private int selectedPiece;
     private final static int HEIGHT = 600;
     private final static int WIDTH = 600;
 
-    public Window(Board board, int userColor) {
+    public Window(Board board) {
         this.board = board;
         pieces = board.getPieces();
-        user = userColor;   // 0 if user is white, 1 if black
         selectedPiece = -1;
 
         panel = new Panel();
@@ -128,7 +125,4 @@ public class Window implements MouseListener {
 
     }
 
-    public static int getUser() {
-        return user;
-    }
 }
