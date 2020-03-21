@@ -14,6 +14,7 @@ public class Window implements MouseListener {
             super.paint(g);
             drawBoard(g);
             drawPieces(g);
+            drawKingInCheck(g);
             if (selectedPiece >= 0)
                 drawCanMoveTo(g);
         }
@@ -27,7 +28,7 @@ public class Window implements MouseListener {
         }
 
         private void drawPieces(Graphics g) {
-            g.setFont(new Font("TimesRoman", Font.BOLD, 18));
+            g.setFont(new Font("TimesRoman", Font.BOLD, 24));
             for (Piece piece : pieces.values()) {
                 int loc = piece.loc;
                 int row = loc / 8;
@@ -44,8 +45,21 @@ public class Window implements MouseListener {
                 else if (piece instanceof Queen) pieceStr = "Q";
                 else pieceStr = "K";
 
-                g.drawString(pieceStr, col * WIDTH/8 + WIDTH/16 - 5,
-                        row * HEIGHT/8 + HEIGHT/16 + 5);
+                g.drawString(pieceStr, col * WIDTH/8 + WIDTH/16 - 7,
+                        row * HEIGHT/8 + HEIGHT/16 + 7);
+            }
+        }
+
+        private void drawKingInCheck(Graphics g) {
+            for (Piece p : pieces.values()) {
+                if (p.color == turn && p instanceof King && ((King) p).inCheck()) {
+                    g.setColor(Color.RED);
+                    int row = p.loc / 8;
+                    int col = p.loc % 8;
+                    g.drawOval(col * WIDTH/8 + WIDTH/16 - 15, row * HEIGHT/8 + HEIGHT/16 - 15,
+                            30, 30);
+                    break;
+                }
             }
         }
 
@@ -97,22 +111,22 @@ public class Window implements MouseListener {
         int mouseLoc = 8 * r + c;
 
         if (selectedPiece == -1) {
-            if (pieces.containsKey(mouseLoc)) selectedPiece = mouseLoc;
+            if (pieces.containsKey(mouseLoc) && pieces.get(mouseLoc).color == turn)
+                selectedPiece = mouseLoc;
         }
         else {
             Piece p = pieces.get(selectedPiece);
-            System.out.println(p.canMoveTo());
             if (p.canMoveTo().contains(mouseLoc)) {
                 p.moveTo(mouseLoc);
                 selectedPiece = -1;
                 nextTurn();
             }
             else if (selectedPiece == mouseLoc) selectedPiece = -1;
-            else if (pieces.containsKey(mouseLoc)) selectedPiece = mouseLoc;
+            else if (pieces.containsKey(mouseLoc) && pieces.get(mouseLoc).color == turn)
+                selectedPiece = mouseLoc;
             else selectedPiece = -1;
         }
 
-        System.out.println(selectedPiece);
         panel.repaint();
     }
 

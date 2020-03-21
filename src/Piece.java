@@ -30,6 +30,15 @@ public abstract class Piece {
         return pieces.containsKey(loc) && pieces.get(loc).color == this.color;
     }
 
+    public boolean kingInCheck() {
+        for (Piece p : pieces.values()) {
+            if (p.color == this.color && p instanceof King) {
+                if (((King) p).inCheck()) return true;
+                else return false;
+            }
+        }
+        return false;
+    }
     // Mostly for debugging purposes
     @Override
     public String toString() {
@@ -39,7 +48,7 @@ public abstract class Piece {
 
         if (this instanceof Pawn) ret += "pawn ";
         else if (this instanceof Bishop) ret += "bishop ";
-        else if (this instanceof Knight) ret += "knight" ;
+        else if (this instanceof Knight) ret += "knight " ;
         else if (this instanceof Rook) ret += "rook ";
         else if (this instanceof Queen) ret += "queen ";
         else if (this instanceof King) ret += "king ";
