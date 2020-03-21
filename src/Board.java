@@ -9,6 +9,10 @@ public class Board {
         pieces = new HashMap<>();
         c = userColor;
 
+        initBoard();
+    }
+
+    private void initBoard() {
         for (int i = 0; i < 8; i ++) {
             pieces.put(8 + i, new Pawn(1 - c,8 + i, this));
             pieces.put(48 + i, new Pawn(c, 48 + i, this));

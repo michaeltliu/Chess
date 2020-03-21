@@ -29,4 +29,23 @@ public abstract class Piece {
     public boolean occupiedByTeam(int loc) {
         return pieces.containsKey(loc) && pieces.get(loc).color == this.color;
     }
+
+    // Mostly for debugging purposes
+    @Override
+    public String toString() {
+        String ret = "";
+        if (color == 0) ret += "White ";
+        else ret += "Black ";
+
+        if (this instanceof Pawn) ret += "pawn ";
+        else if (this instanceof Bishop) ret += "bishop ";
+        else if (this instanceof Knight) ret += "knight" ;
+        else if (this instanceof Rook) ret += "rook ";
+        else if (this instanceof Queen) ret += "queen ";
+        else if (this instanceof King) ret += "king ";
+
+        ret += "at " + loc;
+
+        return ret;
+    }
 }

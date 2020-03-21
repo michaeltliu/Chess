@@ -67,6 +67,7 @@ public class Window implements MouseListener {
     private Board board;
     private Map<Integer, Piece> pieces;
     private int selectedPiece;
+    private int turn;   // 0 for white's turn, 1 for black's
     private final static int HEIGHT = 600;
     private final static int WIDTH = 600;
 
@@ -74,6 +75,7 @@ public class Window implements MouseListener {
         this.board = board;
         pieces = board.getPieces();
         selectedPiece = -1;
+        turn = 0;
 
         panel = new Panel();
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -99,9 +101,11 @@ public class Window implements MouseListener {
         }
         else {
             Piece p = pieces.get(selectedPiece);
+            System.out.println(p.canMoveTo());
             if (p.canMoveTo().contains(mouseLoc)) {
                 p.moveTo(mouseLoc);
                 selectedPiece = -1;
+                nextTurn();
             }
             else if (selectedPiece == mouseLoc) selectedPiece = -1;
             else if (pieces.containsKey(mouseLoc)) selectedPiece = mouseLoc;
@@ -125,4 +129,8 @@ public class Window implements MouseListener {
 
     }
 
+    public void nextTurn() {
+        turn ++;
+        turn %= 2;
+    }
 }

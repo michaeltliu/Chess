@@ -3,9 +3,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Knight extends Piece {
-    public final static int VALUE = 3;
+    private int val;
     public Knight(int color, int loc, Board board) {
         super(color, loc, board);
+        val = 3;
     }
 
     @Override

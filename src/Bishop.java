@@ -2,9 +2,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Bishop extends Piece {
-    public final static int VALUE = 3;
+    private int val;
     public Bishop(int color, int loc, Board board) {
         super(color, loc, board);
+        val = 3;
     }
 
     @Override
@@ -16,6 +17,10 @@ public class Bishop extends Piece {
         while (curr >= 9 && curr % 8 > 0) {
             curr -= 9;
             if (!pieces.containsKey(curr)) ret.add(curr);
+            else if (pieces.containsKey(curr) && pieces.get(curr).color != this.color) {
+                ret.add(curr);
+                break;
+            }
             else break;
         }
 
