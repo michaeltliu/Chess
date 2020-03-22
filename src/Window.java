@@ -26,8 +26,12 @@ public class Window implements MouseListener {
                     else pathname += "b";
 
                     pathname += s;
-
-                    BufferedImage image = ImageIO.read(new File(".\\img\\" + pathname + ".png"));
+                    BufferedImage image;
+                    try {   // If machine is PC
+                        image = ImageIO.read(new File(".\\img\\" + pathname + ".png"));
+                    } catch (IOException e) {   // If machine is Mac
+                        image = ImageIO.read(new File("./img/" + pathname + ".png"));
+                    }
                     BufferedImage resized = resizeImage(image, 65, 65);
                     pieceImages.put(pathname, resized);
                 }

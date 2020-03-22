@@ -50,7 +50,13 @@ public class Board {
                 return (King) p;
             }
         }
+        System.out.println("No king found!");
         return null;
+    }
+
+    public boolean aKingInCheck(int aColor) {
+        King king = getKing(aColor);
+        return king.inCheck();
     }
 
     public static boolean onBoard(int[] loc) {

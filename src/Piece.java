@@ -30,7 +30,7 @@ public abstract class Piece {
         return pieces.containsKey(loc) && pieces.get(loc).color == this.color;
     }
 
-    public boolean kingInCheck() {
+    public boolean myKingInCheck() {
         King king = board.getKing(this.color);
         if (king.inCheck()) return true;
         return false;
