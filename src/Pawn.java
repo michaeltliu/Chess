@@ -42,6 +42,14 @@ public class Pawn extends Piece {
         if (loc % 8 != (3.5 + c*3.5) && pieces.containsKey(loc - c*7) && pieces.get(loc - c*7).color != this.color)
             ret.add(loc - c*7);
 
+        ret.addAll(canEnPassant());
+        return ret;
+    }
+
+    private Set<Integer> canEnPassant() {
+        Set<Integer> ret = new HashSet<>();
+        int c = (int) Math.pow(-1, Math.abs(color - board.c));
+        //if ()
         return ret;
     }
 }

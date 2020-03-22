@@ -26,8 +26,8 @@ public class Board {
             pieces.put(57 + 5*i, new Knight(c, 57 + 5*i, this));
         }
         for (int i = 0; i < 2; i ++) {
-            pieces.put(7*i, new Rook(1 - c, 7*i, this, 1 - i));
-            pieces.put(56 + 7*i, new Rook(c, 56 + 7*i, this, 1 - i));
+            pieces.put(7*i, new Rook(1 - c, 7*i, this, (1-c) + (int) Math.pow(-1, 1-c) * i));
+            pieces.put(56 + 7*i, new Rook(c, 56 + 7*i, this, (1-c) + (int) Math.pow(-1, 1-c) * i));
         }
         pieces.put(3 + c, new Queen(1 - c, 3 + c, this));
         pieces.put(59 + c, new Queen(c, 59 + c, this));
@@ -38,6 +38,19 @@ public class Board {
 
     public Map<Integer, Piece> getPieces() {
         return pieces;
+    }
+
+    public King getKing(int aColor) {
+        if (!(aColor == 0 || aColor == 1)) {
+            System.out.println("Invalid king color");
+            return null;
+        }
+        for (Piece p : pieces.values()) {
+            if (p.color == aColor && p instanceof King) {
+                return (King) p;
+            }
+        }
+        return null;
     }
 
     public static boolean onBoard(int[] loc) {

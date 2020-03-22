@@ -51,15 +51,13 @@ public class Window implements MouseListener {
         }
 
         private void drawKingInCheck(Graphics g) {
-            for (Piece p : pieces.values()) {
-                if (p.color == turn && p instanceof King && ((King) p).inCheck()) {
-                    g.setColor(Color.RED);
-                    int row = p.loc / 8;
-                    int col = p.loc % 8;
-                    g.drawOval(col * WIDTH/8 + WIDTH/16 - 15, row * HEIGHT/8 + HEIGHT/16 - 15,
-                            30, 30);
-                    break;
-                }
+            King king = board.getKing(turn);
+            if (king.inCheck()) {
+                g.setColor(Color.RED);
+                int row = king.loc / 8;
+                int col = king.loc % 8;
+                g.drawOval(col * WIDTH/8 + WIDTH/16 - 15, row * HEIGHT/8 + HEIGHT/16 - 15,
+                        30, 30);
             }
         }
 
@@ -70,8 +68,8 @@ public class Window implements MouseListener {
             for (Integer i : available) {
                 int row = i / 8;
                 int col = i % 8;
-                g.drawOval(col * WIDTH/8 + WIDTH/16 - 15, row * HEIGHT/8 + HEIGHT/16 - 15,
-                        30, 30);
+                g.drawOval(col * WIDTH/8 + WIDTH/16 - 18, row * HEIGHT/8 + HEIGHT/16 - 18,
+                        36, 36);
             }
         }
     }
@@ -116,6 +114,7 @@ public class Window implements MouseListener {
         }
         else {
             Piece p = pieces.get(selectedPiece);
+            if (p instanceof Rook) System.out.println(((Rook) p).getSide());
             if (p.canMoveTo().contains(mouseLoc)) {
                 p.moveTo(mouseLoc);
                 selectedPiece = -1;

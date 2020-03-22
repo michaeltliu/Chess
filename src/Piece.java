@@ -31,14 +31,11 @@ public abstract class Piece {
     }
 
     public boolean kingInCheck() {
-        for (Piece p : pieces.values()) {
-            if (p.color == this.color && p instanceof King) {
-                if (((King) p).inCheck()) return true;
-                else return false;
-            }
-        }
+        King king = board.getKing(this.color);
+        if (king.inCheck()) return true;
         return false;
     }
+
     // Mostly for debugging purposes
     @Override
     public String toString() {

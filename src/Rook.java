@@ -68,4 +68,16 @@ public class Rook extends Piece {
         super.moveTo(dest);
         if (!hasMoved) hasMoved = true;
     }
+
+    public void castle(int dest) {
+        loc = dest;
+    }
+
+    public int getSide() {
+        return side;
+    }
+
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
 }
