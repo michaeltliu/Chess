@@ -27,7 +27,7 @@ public class Window implements MouseListener {
 
                     pathname += s;
 
-                    BufferedImage image = ImageIO.read(new File("C:\\Users\\liumi\\IdeaProjects\\Chess\\img\\" + pathname + ".png"));
+                    BufferedImage image = ImageIO.read(new File(".\\img\\" + pathname + ".png"));
                     BufferedImage resized = resizeImage(image, 65, 65);
                     pieceImages.put(pathname, resized);
                 }
