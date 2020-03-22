@@ -142,10 +142,13 @@ public class King extends Piece {
 
     @Override
     public void moveTo(int dest) {
-        super.moveTo(dest);
-        if (canCastle().keySet().contains(dest)) {
-            System.out.println("reached");
-            Rook rook = canCastle().get(dest);
+        Map<Integer, Rook> map = canCastle();
+        if (map.keySet().contains(dest)) {
+            pieces.remove(loc);
+            loc = dest;
+            pieces.put(loc, this);
+
+            Rook rook = map.get(dest);
             if (rook.getSide() == 0) {
                 rook.castle(this.loc - 1);
             }
@@ -153,6 +156,10 @@ public class King extends Piece {
                 rook.castle(this.loc + 1);
             }
         }
+        else {
+            super.moveTo(dest);
+        }
+
         if (!hasMoved) hasMoved = true;
     }
 }

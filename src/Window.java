@@ -105,7 +105,6 @@ public class Window implements MouseListener {
         }
     }
 
-    private JFrame frame;
     private Panel panel;
     private Board board;
     private Map<Integer, Piece> pieces;
@@ -124,7 +123,7 @@ public class Window implements MouseListener {
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         panel.addMouseListener(this);
 
-        frame = new JFrame("Play Chess!");
+        JFrame frame = new JFrame("Play Chess!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setContentPane(panel);
@@ -145,7 +144,6 @@ public class Window implements MouseListener {
         }
         else {
             Piece p = pieces.get(selectedPiece);
-            if (p instanceof Rook) System.out.println(((Rook) p).getSide());
             if (p.canMoveTo().contains(mouseLoc)) {
                 p.moveTo(mouseLoc);
                 selectedPiece = -1;

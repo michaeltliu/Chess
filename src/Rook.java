@@ -70,7 +70,10 @@ public class Rook extends Piece {
     }
 
     public void castle(int dest) {
+        pieces.remove(loc);
         loc = dest;
+        pieces.put(loc, this);
+        if (!hasMoved) hasMoved = true;
     }
 
     public int getSide() {
