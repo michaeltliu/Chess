@@ -1,22 +1,46 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Window implements MouseListener {
     public class Panel extends JPanel {
+        private Map<String, BufferedImage> pieceImages;
         private final int WIDTH = Window.WIDTH;
         private final int HEIGHT = Window.HEIGHT;
+
+        public Panel() throws IOException {
+            pieceImages = new HashMap<>();
+            String[] pieceTypes = new String[] {"pawn", "bishop", "knight", "rook", "queen", "king"};
+            for (int i = 0; i < 2; i ++) {
+                for (String s : pieceTypes) {
+                    String pathname = "";
+                    if (i == 0) pathname += "w";
+                    else pathname += "b";
+
+                    pathname += s;
+
+                    BufferedImage image = ImageIO.read(new File("C:\\Users\\liumi\\IdeaProjects\\Chess\\img\\" + pathname + ".png"));
+                    BufferedImage resized = resizeImage(image, 65, 65);
+                    pieceImages.put(pathname, resized);
+                }
+            }
+        }
 
         public void paint(Graphics g) {
             super.paint(g);
             drawBoard(g);
-            drawPieces(g);
             drawKingInCheck(g);
             if (selectedPiece >= 0)
                 drawCanMoveTo(g);
+            drawPieces(g);
         }
 
         public void drawBoard(Graphics g) {
@@ -28,25 +52,23 @@ public class Window implements MouseListener {
         }
 
         private void drawPieces(Graphics g) {
-            g.setFont(new Font("TimesRoman", Font.BOLD, 24));
             for (Piece piece : pieces.values()) {
+                String pathname = "";
                 int loc = piece.loc;
                 int row = loc / 8;
                 int col = loc % 8;
 
-                if (piece.color == 0) g.setColor(Color.LIGHT_GRAY);
-                else g.setColor(Color.BLACK);
+                if (piece.color == 0) pathname += "w";
+                else pathname += "b";
 
-                String pieceStr;
-                if (piece instanceof Pawn) pieceStr = "P";
-                else if (piece instanceof Bishop) pieceStr = "B";
-                else if (piece instanceof Knight) pieceStr = "N";
-                else if (piece instanceof Rook) pieceStr = "R";
-                else if (piece instanceof Queen) pieceStr = "Q";
-                else pieceStr = "K";
+                if (piece instanceof Pawn) pathname += "pawn";
+                else if (piece instanceof Bishop) pathname += "bishop";
+                else if (piece instanceof Knight) pathname += "knight";
+                else if (piece instanceof Rook) pathname += "rook";
+                else if (piece instanceof Queen) pathname += "queen";
+                else pathname += "king";
 
-                g.drawString(pieceStr, col * WIDTH/8 + WIDTH/16 - 7,
-                        row * HEIGHT/8 + HEIGHT/16 + 7);
+                g.drawImage(pieceImages.get(pathname), col * WIDTH/8 + 5, row * HEIGHT/8 + 5, this);
             }
         }
 
@@ -56,8 +78,7 @@ public class Window implements MouseListener {
                 g.setColor(Color.RED);
                 int row = king.loc / 8;
                 int col = king.loc % 8;
-                g.drawOval(col * WIDTH/8 + WIDTH/16 - 15, row * HEIGHT/8 + HEIGHT/16 - 15,
-                        30, 30);
+                g.fillRect(col * WIDTH/8 + 1, row * HEIGHT/8 + 1, 73, 73);
             }
         }
 
@@ -68,9 +89,19 @@ public class Window implements MouseListener {
             for (Integer i : available) {
                 int row = i / 8;
                 int col = i % 8;
-                g.drawOval(col * WIDTH/8 + WIDTH/16 - 18, row * HEIGHT/8 + HEIGHT/16 - 18,
-                        36, 36);
+                g.fillRect(col * WIDTH/8 + 1, row * HEIGHT/8 + 1, 73, 73);
             }
+        }
+
+        private BufferedImage resizeImage(BufferedImage img, int newW, int newH) {
+            Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+            BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+            Graphics2D g2d = dimg.createGraphics();
+            g2d.drawImage(tmp, 0, 0, null);
+            g2d.dispose();
+
+            return dimg;
         }
     }
 
@@ -83,7 +114,7 @@ public class Window implements MouseListener {
     private final static int HEIGHT = 600;
     private final static int WIDTH = 600;
 
-    public Window(Board board) {
+    public Window(Board board) throws IOException {
         this.board = board;
         pieces = board.getPieces();
         selectedPiece = -1;
