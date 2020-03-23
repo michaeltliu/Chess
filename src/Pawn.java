@@ -22,6 +22,7 @@ public class Pawn extends Piece {
                 ret.add(loc - c*16);
         }
         ret.addAll(canCapture());
+        removeIllegalMoves(ret);
         return ret;
     }
 

@@ -59,6 +59,7 @@ public class Bishop extends Piece {
             }
             else break;
         }
+        removeIllegalMoves(ret);
         return ret;
     }
 }

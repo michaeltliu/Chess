@@ -103,6 +103,8 @@ public class Queen extends Piece {
             else break;
         }
 
+        removeIllegalMoves(ret);
+
         return ret;
     }
 }

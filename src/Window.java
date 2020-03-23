@@ -27,10 +27,10 @@ public class Window implements MouseListener {
 
                     pathname += s;
                     BufferedImage image;
-                    try {   // If machine is PC
+                    try {   // If machine is Windows
                         image = ImageIO.read(new File(".\\img\\" + pathname + ".png"));
                     } catch (IOException e) {   // If machine is Mac
-                        image = ImageIO.read(new File("./img/" + pathname + ".png"));
+                        image = ImageIO.read(new File("../img/" + pathname + ".png"));
                     }
                     BufferedImage resized = resizeImage(image, 65, 65);
                     pieceImages.put(pathname, resized);
@@ -77,7 +77,7 @@ public class Window implements MouseListener {
         }
 
         private void drawKingInCheck(Graphics g) {
-            King king = board.getKing(turn);
+            King king = board.getKing(board.getTurn());
             if (king.inCheck()) {
                 g.setColor(Color.RED);
                 int row = king.loc / 8;
@@ -113,7 +113,6 @@ public class Window implements MouseListener {
     private Board board;
     private Map<Integer, Piece> pieces;
     private int selectedPiece;
-    private int turn;   // 0 for white's turn, 1 for black's
     private final static int HEIGHT = 600;
     private final static int WIDTH = 600;
 
@@ -121,7 +120,6 @@ public class Window implements MouseListener {
         this.board = board;
         pieces = board.getPieces();
         selectedPiece = -1;
-        turn = 0;
 
         panel = new Panel();
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -143,7 +141,7 @@ public class Window implements MouseListener {
         int mouseLoc = 8 * r + c;
 
         if (selectedPiece == -1) {
-            if (pieces.containsKey(mouseLoc) && pieces.get(mouseLoc).color == turn)
+            if (pieces.containsKey(mouseLoc) && pieces.get(mouseLoc).color == board.getTurn())
                 selectedPiece = mouseLoc;
         }
         else {
@@ -151,10 +149,10 @@ public class Window implements MouseListener {
             if (p.canMoveTo().contains(mouseLoc)) {
                 p.moveTo(mouseLoc);
                 selectedPiece = -1;
-                nextTurn();
+                board.nextTurn();
             }
             else if (selectedPiece == mouseLoc) selectedPiece = -1;
-            else if (pieces.containsKey(mouseLoc) && pieces.get(mouseLoc).color == turn)
+            else if (pieces.containsKey(mouseLoc) && pieces.get(mouseLoc).color == board.getTurn())
                 selectedPiece = mouseLoc;
             else selectedPiece = -1;
         }
@@ -173,10 +171,5 @@ public class Window implements MouseListener {
     }
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    public void nextTurn() {
-        turn ++;
-        turn %= 2;
     }
 }

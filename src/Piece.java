@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +35,27 @@ public abstract class Piece {
         King king = board.getKing(this.color);
         if (king.inCheck()) return true;
         return false;
+    }
+
+    public void removeIllegalMoves(Set<Integer> ret) {
+        if (board.getTurn() == color && myKingInCheck()) {
+            Set<Integer> cpy = new HashSet<>(ret);
+            for (Integer i : cpy) {
+                int saveLoc = loc;
+                Piece savePiece = null;
+                if (pieces.containsKey(i)) savePiece = pieces.get(i);
+
+                pieces.remove(loc);
+                loc = i;
+                pieces.put(i, this);
+                if (myKingInCheck()) ret.remove(i);
+
+                pieces.remove(i);
+                loc = saveLoc;
+                pieces.put(saveLoc, this);
+                if (savePiece != null) pieces.put(i, savePiece);
+            }
+        }
     }
 
     // Mostly for debugging purposes

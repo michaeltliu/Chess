@@ -3,10 +3,12 @@ import java.util.Map;
 
 public class Board {
     private Map<Integer, Piece> pieces;
+    private int turn;
     int c;
 
     public Board(int userColor) {
         pieces = new HashMap<>();
+        turn = 0;
         c = userColor;
 
         initBoard();
@@ -69,5 +71,14 @@ public class Board {
 
     public static int[] convertTo2D(int loc) {
         return new int[] {loc / 8, loc % 8};
+    }
+
+    public void nextTurn() {
+        turn ++;
+        turn %= 2;
+    }
+
+    public int getTurn() {
+        return turn;
     }
 }

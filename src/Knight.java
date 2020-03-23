@@ -46,6 +46,7 @@ public class Knight extends Piece {
         copy[0] += 1; copy[1] += 2;
         checkSquare(ret, copy);
 
+        removeIllegalMoves(ret);
         return ret;
     }
 
