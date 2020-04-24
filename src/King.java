@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class King extends Piece {
-    private int val;
     private boolean hasMoved;
     public King(int color, int loc, Board board) {
         super(color, loc, board);
@@ -163,5 +162,12 @@ public class King extends Piece {
         }
 
         if (!hasMoved) hasMoved = true;
+    }
+
+    @Override
+    public King clone(Board b) {
+        King newKing = new King(color, loc, b);
+        newKing.hasMoved = this.hasMoved;
+        return newKing;
     }
 }

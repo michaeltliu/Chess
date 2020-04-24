@@ -7,13 +7,13 @@ public class Board {
     private int[] lastMove;
     int c;
 
-    public Board(int userColor) {
+    public Board(int userColor, boolean boardinit) {
         pieces = new HashMap<>();
         turn = 0;
         lastMove = new int[2];
         c = userColor;
 
-        initBoard();
+        if (boardinit) initBoard();
     }
 
     private void initBoard() {
@@ -42,6 +42,13 @@ public class Board {
 
     public Map<Integer, Piece> getPieces() {
         return pieces;
+    }
+
+    public void setPieces(Map<Integer, Piece> m) {
+        this.pieces = new HashMap<>();
+        for (Integer i : m.keySet()) {
+            pieces.put(i, m.get(i).clone(this));
+        }
     }
 
     public King getKing(int aColor) {
@@ -89,6 +96,50 @@ public class Board {
     }
 
     public void setLastMove(int[] lastMove) {
-        this.lastMove = lastMove;
+        for (int i = 0; i < 2; i ++) {
+            this.lastMove[i] = lastMove[i];
+        }
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+
+        for (int i = 0; i < 8; i ++) {
+            for (int j = 0; j < 8; j ++) {
+                int loc = 8*i + j;
+                if (!pieces.containsKey(loc)) {
+                    str += "__ ";
+                }
+                else {
+                    Piece piece = pieces.get(loc);
+
+                    if (piece.color == 0) str += "w";
+                    else str += "b";
+
+                    if (piece instanceof Pawn) str += "P";
+                    else if (piece instanceof Bishop) str += "B";
+                    else if (piece instanceof Knight) str += "N";
+                    else if (piece instanceof Rook) str += "R";
+                    else if (piece instanceof Queen) str += "Q";
+                    else str += "K";
+
+                    str += " ";
+                }
+            }
+            str += "\n";
+        }
+        return str;
+    }
+
+    @Override
+    public Board clone() {
+        Board newBoard = new Board(c, false);
+        newBoard.setPieces(pieces);
+        if (newBoard.getTurn() != turn) {
+            newBoard.nextTurn();
+        }
+        newBoard.setLastMove(lastMove);
+        return newBoard;
     }
 }

@@ -2,7 +2,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Pawn extends Piece {
-    private int val;
     private boolean hasMoved;
 
     public Pawn(int color, int loc, Board board) {
@@ -73,5 +72,12 @@ public class Pawn extends Piece {
             }
         }
         return ret;
+    }
+
+    @Override
+    public Pawn clone(Board b) {
+        Pawn newPawn = new Pawn(color, loc, b);
+        newPawn.hasMoved = this.hasMoved;
+        return newPawn;
     }
 }

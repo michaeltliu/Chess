@@ -3,7 +3,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Knight extends Piece {
-    private int val;
     public Knight(int color, int loc, Board board) {
         super(color, loc, board);
         val = 3;
@@ -54,5 +53,11 @@ public class Knight extends Piece {
         if (Board.onBoard(loc) && !occupiedByTeam(Board.convertTo1D(loc))) {
             ret.add(Board.convertTo1D(loc));
         }
+    }
+
+    @Override
+    public Knight clone(Board b) {
+        Knight newKnight = new Knight(color, loc, b);
+        return newKnight;
     }
 }

@@ -2,7 +2,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Rook extends Piece {
-    private int val;
     private int side;
     private boolean hasMoved;
 
@@ -83,5 +82,12 @@ public class Rook extends Piece {
 
     public boolean getHasMoved() {
         return hasMoved;
+    }
+
+    @Override
+    public Rook clone(Board b) {
+        Rook newRook = new Rook(color, loc, b, side);
+        newRook.hasMoved = this.hasMoved;
+        return newRook;
     }
 }

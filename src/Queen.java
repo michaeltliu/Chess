@@ -2,7 +2,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Queen extends Piece {
-    private int val;
     public Queen(int color, int loc, Board board) {
         super(color, loc, board);
         val = 9;
@@ -106,5 +105,11 @@ public class Queen extends Piece {
         removeIllegalMoves(ret);
 
         return ret;
+    }
+
+    @Override
+    public Queen clone(Board b) {
+        Queen newQueen = new Queen(color, loc, b);
+        return newQueen;
     }
 }

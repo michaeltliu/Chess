@@ -3,17 +3,28 @@
   <component name="ChangeListManager">
     <list default="true" id="d131625f-2943-4b6a-9c03-1afee2915a9a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Bishop.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Console.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Console.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Engine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/King.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Knight.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Pawn.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Piece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Window$Panel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Window$Panel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Window.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Window.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Queen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Rook.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Testing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Testing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Console.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Console.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pawn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Testing.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +62,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Console">
+  <component name="RunManager" selected="Application.Testing">
     <configuration name="Console" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Console" />
       <module name="Chess" />
@@ -68,8 +79,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Console" />
         <item itemvalue="Application.Testing" />
+        <item itemvalue="Application.Console" />
       </list>
     </recent_temporary>
   </component>
@@ -104,11 +115,16 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/King.java</url>
-          <line>12</line>
+          <line>11</line>
           <properties class="King" method="canMoveTo">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Testing.java</url>
+          <line>6</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -116,6 +132,8 @@
       <configuration name="Application">
         <watch expression="ret" language="JAVA" />
         <watch expression="piece.canMoveTo()" language="JAVA" />
+        <watch expression="args" />
+        <watch expression="board" />
       </configuration>
     </watches-manager>
   </component>

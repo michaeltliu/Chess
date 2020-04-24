@@ -7,6 +7,7 @@ public abstract class Piece {
     int loc;
     Board board;
     Map<Integer, Piece> pieces;
+    int val;
 
     public Piece(int color, int loc, Board board) {
         this.color = color;
@@ -24,6 +25,14 @@ public abstract class Piece {
             loc = dest;
             pieces.put(loc, this);
         }
+    }
+
+    // For debugging purposes only. Bypasses canMoveTo()
+    public void forceMoveTo(int dest) {
+        pieces.remove(loc);
+        board.setLastMove(new int[] {loc, dest});
+        loc = dest;
+        pieces.put(loc, this);
     }
 
     public boolean occupiedByTeam(int loc) {
@@ -56,6 +65,8 @@ public abstract class Piece {
             }
         }
     }
+
+    public abstract Piece clone(Board b);
 
     // Mostly for debugging purposes
     @Override

@@ -2,7 +2,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Bishop extends Piece {
-    private int val;
     public Bishop(int color, int loc, Board board) {
         super(color, loc, board);
         val = 3;
@@ -61,5 +60,11 @@ public class Bishop extends Piece {
         }
         removeIllegalMoves(ret);
         return ret;
+    }
+
+    @Override
+    public Bishop clone(Board b) {
+        Bishop newBishop = new Bishop(color, loc, b);
+        return newBishop;
     }
 }
