@@ -28,7 +28,19 @@ public class Pawn extends Piece {
 
     @Override
     public void moveTo(int dest) {
-        super.moveTo(dest);
+        Set<Integer> enPassant = canEnPassant();
+        if (enPassant.contains(dest)) {
+            pieces.remove(loc);
+            board.setLastMove(new int[] {loc, dest});
+            loc = dest;
+            pieces.put(loc, this);
+
+            int c = (int) Math.pow(-1, Math.abs(color - board.c));
+            pieces.remove(loc + c*8);
+        }
+        else {
+            super.moveTo(dest);
+        }
         if (!hasMoved) hasMoved = true;
     }
 
@@ -50,7 +62,16 @@ public class Pawn extends Piece {
     private Set<Integer> canEnPassant() {
         Set<Integer> ret = new HashSet<>();
         int c = (int) Math.pow(-1, Math.abs(color - board.c));
-        //if ()
+        if (loc / 8 == 3.5 - 0.5*c) {
+            if (loc % 8 != (3.5 - c*3.5) && pieces.containsKey(loc - c) && pieces.get(loc - c).color != this.color
+                    && pieces.get(loc - c) instanceof Pawn && board.getLastMove()[0] == (loc - c) - c*16) {
+                ret.add((loc - c) - c*8);
+            }
+            if (loc % 8 != (3.5 + c*3.5) && pieces.containsKey(loc + c) && pieces.get(loc + c).color != this.color
+                    && pieces.get(loc + c) instanceof Pawn && board.getLastMove()[0] == (loc + c) - c*16) {
+                ret.add((loc + c) - c*8);
+            }
+        }
         return ret;
     }
 }

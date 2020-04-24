@@ -19,9 +19,8 @@ public abstract class Piece {
 
     public void moveTo(int dest) {
         if (canMoveTo().contains(dest)) {
-            if (pieces.containsKey(dest) && pieces.get(dest).color != this.color)
-                pieces.remove(dest);
             pieces.remove(loc);
+            board.setLastMove(new int[] {loc, dest});
             loc = dest;
             pieces.put(loc, this);
         }
@@ -38,7 +37,7 @@ public abstract class Piece {
     }
 
     public void removeIllegalMoves(Set<Integer> ret) {
-        if (board.getTurn() == color && myKingInCheck()) {
+        if (board.getTurn() == color) {
             Set<Integer> cpy = new HashSet<>(ret);
             for (Integer i : cpy) {
                 int saveLoc = loc;

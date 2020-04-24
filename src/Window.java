@@ -74,6 +74,15 @@ public class Window implements MouseListener {
 
                 g.drawImage(pieceImages.get(pathname), col * WIDTH/8 + 5, row * HEIGHT/8 + 5, this);
             }
+
+            int[] arr = board.getLastMove();
+            int prev = arr[0];
+            int post = arr[1];
+            if (prev != post) {
+                g.setColor(Color.BLACK);
+                g.drawOval((prev % 8) * WIDTH / 8, (prev / 8) * HEIGHT / 8, WIDTH / 8, HEIGHT / 8);
+                g.drawOval((post % 8) * WIDTH / 8, (post / 8) * HEIGHT / 8, WIDTH / 8, HEIGHT / 8);
+            }
         }
 
         private void drawKingInCheck(Graphics g) {

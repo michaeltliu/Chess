@@ -4,11 +4,13 @@ import java.util.Map;
 public class Board {
     private Map<Integer, Piece> pieces;
     private int turn;
+    private int[] lastMove;
     int c;
 
     public Board(int userColor) {
         pieces = new HashMap<>();
         turn = 0;
+        lastMove = new int[2];
         c = userColor;
 
         initBoard();
@@ -80,5 +82,13 @@ public class Board {
 
     public int getTurn() {
         return turn;
+    }
+
+    public int[] getLastMove() {
+        return lastMove;
+    }
+
+    public void setLastMove(int[] lastMove) {
+        this.lastMove = lastMove;
     }
 }
