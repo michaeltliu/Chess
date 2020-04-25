@@ -53,12 +53,12 @@ public abstract class Piece {
                 Piece savePiece = null;
                 if (pieces.containsKey(i)) savePiece = pieces.get(i);
 
-                pieces.remove(loc);
+                pieces.remove(loc); // concurrent mod exception cause
                 loc = i;
                 pieces.put(i, this);
                 if (myKingInCheck()) ret.remove(i);
 
-                pieces.remove(i);
+                pieces.remove(i);   // concurrent mod exception cause
                 loc = saveLoc;
                 pieces.put(saveLoc, this);
                 if (savePiece != null) pieces.put(i, savePiece);

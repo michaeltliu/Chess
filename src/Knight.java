@@ -11,6 +11,7 @@ public class Knight extends Piece {
     @Override
     public Set<Integer> canMoveTo() {
         Set<Integer> ret = new HashSet<>();
+
         int[] locArray = Board.convertTo2D(loc);
 
         int[] copy = Arrays.copyOf(locArray, locArray.length);

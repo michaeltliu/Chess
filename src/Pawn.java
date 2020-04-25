@@ -13,6 +13,7 @@ public class Pawn extends Piece {
     @Override
     public Set<Integer> canMoveTo() {
         Set<Integer> ret = new HashSet<>();
+
         int c = (int) Math.pow(-1, Math.abs(color - board.c));
 
         if (loc >= 8 && !pieces.containsKey(loc - c*8)) {
@@ -45,6 +46,7 @@ public class Pawn extends Piece {
 
     public Set<Integer> canCapture() {
         Set<Integer> ret = new HashSet<>();
+
         // c is 1 if it is the user's pieces and -1 if it is the computer's
         int c = (int) Math.pow(-1, Math.abs(color - board.c));
 
@@ -60,6 +62,7 @@ public class Pawn extends Piece {
 
     private Set<Integer> canEnPassant() {
         Set<Integer> ret = new HashSet<>();
+
         int c = (int) Math.pow(-1, Math.abs(color - board.c));
         if (loc / 8 == 3.5 - 0.5*c) {
             if (loc % 8 != (3.5 - c*3.5) && pieces.containsKey(loc - c) && pieces.get(loc - c).color != this.color

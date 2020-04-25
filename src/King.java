@@ -11,6 +11,7 @@ public class King extends Piece {
     @Override
     public Set<Integer> canMoveTo() {
         Set<Integer> ret = new HashSet<>();
+
         for (Integer i : range()) {
             validateSquare(ret, Board.convertTo2D(i));
         }
@@ -25,13 +26,13 @@ public class King extends Piece {
 
             boolean kingSideClear = true;
             if (pieces.containsKey(loc + c) || pieces.containsKey(loc + 2*c) ||
-                    !safeSquare(Board.convertTo2D(loc + c)) || !safeSquare(Board.convertTo2D(loc + 2*c)))
+                    !isSafeSquare(Board.convertTo2D(loc + c)) || !isSafeSquare(Board.convertTo2D(loc + 2*c)))
                 kingSideClear = false;
 
             boolean queenSideClear = true;
             if (pieces.containsKey(loc - c) || pieces.containsKey(loc - 2*c) || pieces.containsKey(loc - 3*c)
-                    || !safeSquare(Board.convertTo2D(loc - c)) || !safeSquare(Board.convertTo2D(loc - 2*c))
-                    || !safeSquare(Board.convertTo2D(loc - 3*c)))
+                    || !isSafeSquare(Board.convertTo2D(loc - c)) || !isSafeSquare(Board.convertTo2D(loc - 2*c))
+                    || !isSafeSquare(Board.convertTo2D(loc - 3*c)))
                 queenSideClear = false;
 
             for (Piece p : pieces.values()) {
@@ -112,11 +113,11 @@ public class King extends Piece {
     private void validateSquare(Set<Integer> ret, int[] destArr) {
         int destInt = Board.convertTo1D(destArr);
         if (Board.onBoard(destArr) && !occupiedByTeam(destInt)) {
-            if (safeSquare(destArr)) ret.add(Board.convertTo1D(destArr));
+            if (isSafeSquare(destArr)) ret.add(Board.convertTo1D(destArr));
         }
     }
 
-    private boolean safeSquare(int[] destArr) {
+    private boolean isSafeSquare(int[] destArr) {
         boolean ret;
         int destInt = Board.convertTo1D(destArr);
 
