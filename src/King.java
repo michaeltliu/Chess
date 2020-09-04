@@ -60,8 +60,6 @@ public class King extends Piece {
                 if ((p instanceof Pawn && ((Pawn) p).canCapture().contains(loc)) ||
                         (p instanceof King && ((King) p).range().contains(loc)) ||
                         (!(p instanceof Pawn) && !(p instanceof King) && p.canMoveTo().contains(loc))) {
-                    System.out.println("Unsafe square: " + loc);
-                    System.out.println(p.toString());
                     safe = false;
                     break;
                 }
